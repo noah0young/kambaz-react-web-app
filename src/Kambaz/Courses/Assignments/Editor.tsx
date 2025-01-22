@@ -97,7 +97,7 @@ export default function AssignmentsEditor() {
         </tr>
       </table>
       <hr />
-      <div id="wd-assignments-editor-final-buttons" align="right">
+      <div id="wd-assignments-editor-final-buttons">
         <button>Cancel</button>
         <button>Save</button>
       </div>
