@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 export default function KambazNavigation() {
   return (
     <div>
+      <a href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
+        Northeastern
+      </a>
+      <br />
       <Link to="/Kambaz/Account">Signin</Link>
       <br />
       <Link to="/Kambaz/Dashboard">Dashboard</Link>
@@ -16,6 +20,8 @@ export default function KambazNavigation() {
       <Link to="/Kambaz/History">History</Link>
       <br />
       <Link to="/Kambaz/Help">Help</Link>
+      <br />
+      <Link to="/Labs">Labs</Link>
     </div>
   );
 }
