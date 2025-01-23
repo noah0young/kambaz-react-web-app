@@ -8,36 +8,26 @@ export default function Home() {
         <option>Publish All</option>
       </select>
       <button>+ Module</button> {/* To create new modules */}
-      <ul>
-        <li>
-          <div>
-            <h4>Module 1</h4>
-            <ul>
-              <li>Lesson 1</li>
-              <li>Lesson 2</li>
-              <li>Lesson 3</li>
-            </ul>
-          </div>
+      <ul id="wd-modules">
+        <li className="wd-module">
+          <div className="wd-title">Week 1</div>
+          <ul className="wd-lessons">
+            <li className="wd-lesson">
+              <span className="wd-title">LEARNING OBJECTIVES</span>
+              <ul className="wd-content">
+                <li className="wd-content-item">Introduction to the course</li>
+                <li className="wd-content-item">
+                  Learn what is Web Development
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
-        <li>
-          <div>
-            <h4>Module 2</h4>
-            <ul>
-              <li>Lesson 1</li>
-              <li>Lesson 2</li>
-              <li>Lesson 3</li>
-            </ul>
-          </div>
+        <li className="wd-module">
+          <div className="wd-title">Week 2</div>
         </li>
-        <li>
-          <div>
-            <h4>Module 3</h4>
-            <ul>
-              <li>Lesson 1</li>
-              <li>Lesson 2</li>
-              <li>Lesson 3</li>
-            </ul>
-          </div>
+        <li className="wd-module">
+          <div className="wd-title">Week 3</div>
         </li>
       </ul>
     </div>

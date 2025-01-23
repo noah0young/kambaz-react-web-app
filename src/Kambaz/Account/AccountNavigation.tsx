@@ -7,7 +7,7 @@ export default function AccountNavigation() {
       <br />
       <Link to="/Kambaz/Account/Signup">Signup</Link>
       <br />
-      <Link to="/Kambaz/Account/Account">Account</Link>
+      <Link to="/Kambaz/Account/Profile">Profile</Link>
       <br />
     </div>
   );
