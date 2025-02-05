@@ -1,48 +1,54 @@
+import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 export default function Profile() {
   return (
     <div id="wd-profile-screen">
       <h3>Profile</h3>
-      <input
+      <Form.Control
+        id="wd-username"
+        placeholder="Username"
+        className="mb-2"
         defaultValue="alice"
-        placeholder="username"
-        className="wd-username"
       />
-      <br />
-      <input
-        defaultValue="123"
-        placeholder="password"
+      <Form.Control
+        id="wd-password"
+        placeholder="Password"
         type="password"
-        className="wd-password"
+        className="mb-2"
+        defaultValue="123"
       />
-      <br />
-      <input
-        defaultValue="Alice"
+      <Form.Control
+        id="wd-first-name"
         placeholder="First Name"
-        className="wd-firstname"
+        className="mb-2"
+        defaultValue="Alice"
       />
-      <br />
-      <input
-        defaultValue="Wonderland"
+      <Form.Control
+        id="wd-last-name"
         placeholder="Last Name"
-        className="wd-lastname"
+        className="mb-2"
+        defaultValue="Wonderland"
       />
-      <br />
-      <input
-        defaultValue="alice@worldland"
+      <Form.Control id="wd-date-of-birth" type="date" className="mb-2" />
+      <Form.Control
+        id="wd-email"
         type="email"
-        placeholder="email"
-        className="wd-email"
+        className="mb-2"
+        defaultValue="alice@worldland"
       />
-      <br />
-      <select defaultValue="FACULTY">
+      <Form.Select>
         <option value="USER">User</option>
         <option value="ADMIN">Admin</option>
         <option value="FACULTY">Faculty</option>
         <option value="STUDENT">Student</option>
-      </select>
-      <br />
-      <Link to="/Kambaz/Account/Signin">Sign out</Link>
+      </Form.Select>
+      <Link
+        id="wd-signout-btn"
+        to="/Kambaz/Account/Signin"
+        className="btn btn-primary w-100 mb-2 bg-danger"
+      >
+        Sign out
+      </Link>
     </div>
   );
 }
