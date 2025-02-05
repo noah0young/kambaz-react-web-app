@@ -1,4 +1,4 @@
-import { Col, ListGroup, Row, Table } from "react-bootstrap";
+import { Card, Col, ListGroup, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
@@ -23,82 +23,91 @@ export default function Assignments() {
               <AssignmentHeaderControlButtons />
             </div>
             <ListGroup className="wd-assignments rounded-0">
-              <ListGroup.Item className="wd-assignment p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <Table>
-                  <Col>
-                    <Row>A1</Row>
-                    <Row>
-                      <p>
-                        <p className="text-danger">Multiple Modules</p> |{" "}
-                      </p>
-                    </Row>
+              <ListGroup.Item
+                className="wd-assignment-link p-3 ps-1"
+                as={Link}
+                to="125"
+              >
+                <Row>
+                  <Col xs={2}>
+                    <BsGripVertical className="me-2 fs-3" />
+                    <VscSaveAs className="me-2 fs-3 text-success" />
                   </Col>
-                </Table>
-                <VscSaveAs className="me-2 fs-3 text-success" />
-                <AssignmentControlButtons />
+                  <Col xs={9}>
+                    <Card className="border-0">
+                      <Card.Text>
+                        <h3>A1 - ENV + HTML</h3>
+                      </Card.Text>
+                      <Card.Text>
+                        <p className="text-danger d-inline">Multiple Modules</p>{" "}
+                        | <strong>Not available until</strong> May 6 at 12:00am
+                        | <strong>Due</strong> May 13 at 11:59pm | 100pt
+                      </Card.Text>
+                    </Card>
+                  </Col>
+                  <Col xs={1}>
+                    <AssignmentControlButtons />
+                  </Col>
+                </Row>
               </ListGroup.Item>
-              <ListGroup.Item className="wd-assignment p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <VscSaveAs className="me-2 fs-3 text-success" /> A2
-                <AssignmentControlButtons />
+              <ListGroup.Item
+                className="wd-assignment-link p-3 ps-1"
+                as={Link}
+                to="125"
+              >
+                <Row>
+                  <Col xs={2}>
+                    <BsGripVertical className="me-2 fs-3" />
+                    <VscSaveAs className="me-2 fs-3 text-success" />
+                  </Col>
+                  <Col xs={9}>
+                    <Card className="border-0">
+                      <Card.Text>
+                        <h3>A2 - CSS + BOOTSTRAP</h3>
+                      </Card.Text>
+                      <Card.Text>
+                        <p className="text-danger d-inline">Multiple Modules</p>{" "}
+                        | <strong>Not available until</strong> May 6 at 12:00am
+                        | <strong>Due</strong> May 13 at 11:59pm | 100pt
+                      </Card.Text>
+                    </Card>
+                  </Col>
+                  <Col xs={1}>
+                    <AssignmentControlButtons />
+                  </Col>
+                </Row>
               </ListGroup.Item>
-              <ListGroup.Item className="wd-assignment p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <VscSaveAs className="me-2 fs-3 text-success" /> A3
-                <AssignmentControlButtons />
+              <ListGroup.Item
+                className="wd-assignment-link p-3 ps-1"
+                as={Link}
+                to="125"
+              >
+                <Row>
+                  <Col xs={2}>
+                    <BsGripVertical className="me-2 fs-3" />
+                    <VscSaveAs className="me-2 fs-3 text-success" />
+                  </Col>
+                  <Col xs={9}>
+                    <Card className="border-0">
+                      <Card.Text>
+                        <h3>A3 - JAVASCRIPT + REACT</h3>
+                      </Card.Text>
+                      <Card.Text>
+                        <p className="text-danger d-inline">Multiple Modules</p>{" "}
+                        | <strong>Not available until</strong> May 6 at 12:00am
+                        | <strong>Due</strong> May 13 at 11:59pm | 100pt
+                      </Card.Text>
+                    </Card>
+                  </Col>
+                  <Col xs={1}>
+                    <AssignmentControlButtons />
+                  </Col>
+                </Row>
               </ListGroup.Item>
             </ListGroup>
           </ListGroup.Item>
         </ListGroup>
       </div>
-      {/* Old */}
-      <input placeholder="Search for Assignments" id="wd-search-assignment" />
-      <button id="wd-add-assignment-group">+ Group</button>
-      <button id="wd-add-assignment">+ Assignment</button>
-      <br />
-      <h2 id="wd-assignment-title">
-        ASSIGNMENTS 40% of Total<button>+</button>
-      </h2>
-      <ul id="wd-assignment-list">
-        <li className="wd-assignment-list-item">
-          <div>
-            <Link to="123" className="wd-assignment-link">
-              A1 - ENV + HTML
-            </Link>
-            <br />
-            <p>
-              Multiple Modules | <strong>Not available until</strong> May 6 at
-              12:00am | <strong>Due</strong> May 13 at 11:59pm | 100pt
-            </p>
-          </div>
-        </li>
-        {/* Duplicates of above */}
-        <li className="wd-assignment-list-item">
-          <div>
-            <Link to="124" className="wd-assignment-link">
-              A2 - CSS + BOOTSTRAP
-            </Link>
-            <br />
-            <p>
-              Multiple Modules | <strong>Not available until</strong> May 6 at
-              12:00am | <strong>Due</strong> May 13 at 11:59pm | 100pt
-            </p>
-          </div>
-        </li>
-        <li className="wd-assignment-list-item">
-          <div>
-            <Link to="125" className="wd-assignment-link">
-              A3 - JAVASCRIPT + REACT
-            </Link>
-            <br />
-            <p>
-              Multiple Modules | <strong>Not available until</strong> May 6 at
-              12:00am | <strong>Due</strong> May 13 at 11:59pm | 100pt
-            </p>
-          </div>
-        </li>
-      </ul>
     </div>
   );
 }
