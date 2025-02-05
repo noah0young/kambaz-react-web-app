@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import BootstrapGrids from "./BootStrapGrids";
 import "./index.css";
 import ReactIconsSampler from "./ReactIcons";

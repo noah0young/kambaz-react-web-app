@@ -1,4 +1,4 @@
-import { Card, Col, ListGroup, Row, Table } from "react-bootstrap";
+import { Card, Col, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
