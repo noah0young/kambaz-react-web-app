@@ -1,28 +1,31 @@
+import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
   return (
     <div id="wd-signup">
-      <h3>Sign up</h3>
-
-      {/* Username and password inputs */}
-      <label htmlFor="wd-username">Username: </label>
-      <input id="wd-username" type="string" placeholder="username here" />
-      <br />
-      <label htmlFor="wd-passowrd">Password: </label>
-      <input id="wd-passowrd" type="password" placeholder="password here" />
-      <br />
-      <label htmlFor="wd-confirm-passowrd">Password: </label>
-      <input
-        id="wd-confirm-passowrd"
+      <h3>Profile</h3>
+      <Form.Control id="wd-username" placeholder="Username" className="mb-2" />
+      <Form.Control
+        id="wd-password"
+        placeholder="Password"
         type="password"
-        placeholder="confirm password"
+        className="mb-2"
       />
-      <br />
-
-      <Link to="/Kambaz/Account/Profile" id="wd-signup-btn">
-        <button>Sign up</button>
+      <Form.Control
+        id="wd-password-confirm"
+        placeholder="Confirm Password"
+        type="password"
+        className="mb-2"
+      />
+      <Link
+        id="wd-signin-btn"
+        to="/Kambaz/Account/Profile"
+        className="btn btn-primary w-100 mb-2 bg-danger"
+      >
+        Sign up
       </Link>
+
       <br />
       <Link to="/Kambaz/Account/Signin" id="wd-signup-link">
         Sign in

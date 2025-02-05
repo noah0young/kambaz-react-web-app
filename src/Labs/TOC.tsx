@@ -1,25 +1,41 @@
-import { Link } from "react-router-dom";
+import { Button, Card, Nav } from "react-bootstrap";
 
 export default function TOC() {
   return (
-    <div id="wd-toc">
-      <ul>
-        <li>
-          <Link to="/Labs">Labs</Link>
-        </li>
-        <li>
-          <Link to="/Labs/Lab1">Lab 1</Link>
-        </li>
-        <li>
-          <Link to="/Labs/Lab2">Lab 2</Link>
-        </li>
-        <li>
-          <Link to="/Labs/Lab3">Lab 3</Link>
-        </li>
-        <li>
-          <Link to="/Kambaz">Kambaz</Link>
-        </li>
-      </ul>
+    <div>
+      <Nav variant="pills">
+        <Nav.Item>
+          <Nav.Link href="#/Labs">Labs</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/Labs/Lab1">Lab 1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/Labs/Lab2">Lab 2</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/Labs/Lab3">Lab 3</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/Kambaz">Kambaz</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="https://github.com/noah0young/kambaz-react-web-app">
+            My GitHub
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <div id="wd-css-navigating-with-cards">
+        <h2>Cards</h2>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src="images/DetectiveClock.png" />
+          <Card.Body>
+            <Card.Title>Detective Clock</Card.Title>
+            <Card.Text>A Broken Clock is Right Twice a Day</Card.Text>
+            <Button variant="primary">Go</Button>
+          </Card.Body>
+        </Card>
+      </div>
     </div>
   );
 }

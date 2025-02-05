@@ -1,6 +1,9 @@
+import { Form } from "react-bootstrap";
+
 export default function AssignmentsEditor() {
   return (
     <div id="wd-assignments-editor">
+      <Form.Control id="wd-username" placeholder="username" className="mb-2" />
       <label htmlFor="wd-name">Assignment Name</label>
       <br />
       <input id="wd-name" placeholder="Assignment Name" />
