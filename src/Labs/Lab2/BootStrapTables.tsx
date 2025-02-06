@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap";
 
-export default function BootStrapTables() {
+export default function BootstrapTables() {
   return (
     <div id="wd-css-styling-tables">
       <h2>Tables</h2>

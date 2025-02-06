@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function CoursesNavigation() {
   return (
     <div>
-      <ListGroup className="rounded-0 wd-secondary-nav-list">
+      <ListGroup className="rounded-0 d-none d-md-block wd-secondary-nav-list position-fixed top-20 left-0 z-2 p-2">
         <ListGroup.Item
           className="active text-black border-0"
           as={Link}
