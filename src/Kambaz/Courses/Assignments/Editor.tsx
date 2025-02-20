@@ -148,13 +148,14 @@ export default function AssignmentsEditor() {
       <br />
       <hr />
       <div id="wd-assignments-editor-final-buttons">
-        <Button variant="secondary" className="rounded-0 me-2">
+        <Button variant="secondary" className="rounded-0 me-2 float-end">
           Cancel
         </Button>
-        <Button variant="danger" className="rounded-0 me-2">
+        <Button variant="danger" className="rounded-0 me-2 float-end">
           Save
         </Button>
       </div>
+      <br />
     </div>
   );
 }
