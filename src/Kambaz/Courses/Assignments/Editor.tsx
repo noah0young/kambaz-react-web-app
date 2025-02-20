@@ -9,16 +9,37 @@ import {
   FormSelect,
   Row,
 } from "react-bootstrap";
+import { useParams } from "react-router";
+import * as db from "../../Database";
 
 export default function AssignmentsEditor() {
+  const { cid, assignmentID } = useParams();
+  const possibleAssignments = db.assignments.filter(
+    ({ _id, course }) => cid === course && _id === assignmentID
+  );
+  const assignment =
+    possibleAssignments.length >= 1
+      ? possibleAssignments[0]
+      : {
+          // default values if no assignment is found
+          title: "",
+          description: "",
+          points: "",
+          "available date": "",
+          "due date": "",
+        };
   return (
     <div id="wd-assignments-editor">
       <FormGroup className="mb-3" controlId="wd-name">
         <FormLabel>Assignment Name</FormLabel>
-        <FormControl placeholder="Assignment Name" />
+        <FormControl placeholder="Assignment Name" value={assignment.title} />
       </FormGroup>
       <FormGroup className="mb-3" controlId="wd-description">
-        <FormControl as="textarea" placeholder="Assignment Description" />
+        <FormControl
+          as="textarea"
+          placeholder="Assignment Description"
+          value={assignment.description}
+        />
       </FormGroup>
       <Row>
         <Col xs={6}>
@@ -28,7 +49,7 @@ export default function AssignmentsEditor() {
         </Col>
         <Col xs={6}>
           <FormGroup className="mb-3" controlId="wd-points">
-            <FormControl type="number" />
+            <FormControl value={assignment.points} type="number" />
           </FormGroup>
         </Col>
       </Row>
@@ -132,12 +153,20 @@ export default function AssignmentsEditor() {
               <Row>
                 <Col>
                   <Card.Text>
-                    <FormControl placeholder="Assignment Name" type="date" />
+                    <FormControl
+                      placeholder="Assignment Name"
+                      value={assignment["available date"]}
+                      type="date"
+                    />
                   </Card.Text>
                 </Col>
                 <Col>
                   <Card.Text>
-                    <FormControl placeholder="Assignment Name" type="date" />
+                    <FormControl
+                      placeholder="Assignment Name"
+                      value={assignment["due date"]}
+                      type="date"
+                    />
                   </Card.Text>
                 </Col>
               </Row>

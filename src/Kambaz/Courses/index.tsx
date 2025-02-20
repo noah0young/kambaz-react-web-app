@@ -1,4 +1,10 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useParams,
+  useLocation,
+} from "react-router-dom";
 import Home from "./Home";
 import Modules from "./Modules";
 import CoursesNavigation from "./CoursesNavigation";
@@ -7,13 +13,17 @@ import AssignmentsEditor from "./Assignments/Editor";
 import { GiHamburgerMenu } from "react-icons/gi";
 import People from "../People/People";
 import { Col, Row } from "react-bootstrap";
+import courses from "../Database/courses.json";
 
 export default function Courses() {
+  const { cid } = useParams();
+  const course = courses.find((course) => course._id === cid);
+  const { pathname } = useLocation();
   return (
     <div>
       <h2 className="text-danger">
         <GiHamburgerMenu className="me-3" />
-        Courses
+        {course && course.name} &gt; {pathname.split("/")[4]}
       </h2>
       <Row>
         <Col className="d-none d-md-flex" md={2}>
@@ -22,7 +32,7 @@ export default function Courses() {
         <Col className="flex-fill" md={10}>
           <Routes>
             <Route path="" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<Home />} />
+            <Route path="Home" element={<Home cid={cid} />} />
             <Route path="Modules" element={<Modules />} />
             <Route path="Assignments" element={<Assignments />} />
             <Route
