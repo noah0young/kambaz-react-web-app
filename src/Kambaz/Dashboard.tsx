@@ -3,20 +3,42 @@ import React, { useState } from "react";
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import * as db from "./Database";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addNewCourse, deleteCourse, updateCourse } from "./Courses/reducer";
 
-export default function Dashboard() {
+export default function Dashboard({
+  course,
+  setCourse,
+}: {
+  course: any;
+  setCourse: any;
+}) {
+  const dispatch = useDispatch();
+  const [showAllCourses, setShowAllCourses] = useState(false);
+  const { courses } = useSelector((state: any) => state.courseReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = db;
-  const myCourses = courses.filter((course) =>
-    enrollments.some(
-      (enrollment) =>
-        enrollment.user === currentUser._id && enrollment.course === course._id
-    )
-  );
+  const myCourses = showAllCourses
+    ? courses
+    : courses.filter((course: any) =>
+        enrollments.some(
+          (enrollment) =>
+            enrollment.user === currentUser._id &&
+            enrollment.course === course._id
+        )
+      );
   return (
     <div id="wd-dashboard">
-      <h1 id="we-dashboard-title">Dashboard</h1> <hr />
+      <h1 id="we-dashboard-title">Dashboard</h1>{" "}
+      <Button
+        className="float-end d-flex"
+        onClick={() => {
+          setShowAllCourses(!showAllCourses);
+        }}
+      >
+        Enrollments
+      </Button>{" "}
+      <hr />
       {currentUser.role === "FACULTY" && (
         <>
           <h5>New Course</h5>
@@ -24,26 +46,38 @@ export default function Dashboard() {
           <FormControl
             value={course.name}
             className="mb-2"
-            onChange={(e) => setCourse({ ...course, name: e.target.value })}
+            onChange={(e) =>
+              dispatch(setCourse({ ...course, name: e.target.value }))
+            }
           />
           <FormControl
             value={course.description}
             rows={3}
             onChange={(e) =>
-              setCourse({ ...course, description: e.target.value })
+              dispatch(setCourse({ ...course, description: e.target.value }))
             }
           />
           <button
             className="btn btn-primary float-end"
             id="wd-add-new-course-click"
-            onClick={addNewCourse}
+            onClick={() =>
+              dispatch(
+                addNewCourse({
+                  name: course.name,
+                  number: course.number,
+                  startDate: course.startDate,
+                  endDate: course.endDate,
+                  description: course.description,
+                })
+              )
+            }
           >
             {" "}
             Add{" "}
           </button>
           <button
             className="btn btn-warning float-end me-2"
-            onClick={updateCourse}
+            onClick={() => dispatch(updateCourse(course))}
             id="wd-update-course-click"
           >
             Update
@@ -57,7 +91,7 @@ export default function Dashboard() {
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {myCourses.map((course) => (
+          {myCourses.map((course: any) => (
             <Col
               className="wd-dashboard-course"
               style={{ width: "300px" }}
@@ -89,7 +123,7 @@ export default function Dashboard() {
                       <button
                         onClick={(event) => {
                           event.preventDefault();
-                          deleteCourse(course._id);
+                          dispatch(deleteCourse(course._id));
                         }}
                         className="btn btn-danger float-end"
                         id="wd-delete-course-click"
