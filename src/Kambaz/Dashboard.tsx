@@ -1,5 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import * as db from "./Database";
 import { Link } from "react-router-dom";
@@ -52,7 +51,6 @@ export default function Dashboard({
           />
           <FormControl
             value={course.description}
-            rows={3}
             onChange={(e) =>
               dispatch(setCourse({ ...course, description: e.target.value }))
             }

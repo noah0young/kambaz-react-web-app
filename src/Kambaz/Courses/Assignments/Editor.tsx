@@ -20,7 +20,7 @@ export default function AssignmentsEditor() {
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
   const { cid, assignmentID } = useParams();
   const possibleAssignments = assignments.filter(
-    (a) => cid === a.course && a._id === assignmentID
+    (a: any) => cid === a.course && a._id === assignmentID
   );
   const dispatch = useDispatch();
   const [assignment, setAssignment] = useState(
@@ -36,7 +36,7 @@ export default function AssignmentsEditor() {
           _id: uuidv4(),
         }
   );
-  const isUpdatingAssignment: boolean = !!possibleAssignments.find((a) => {
+  const isUpdatingAssignment: boolean = !!possibleAssignments.find((a: any) => {
     return a._id === assignment._id;
   });
   const navigate = useNavigate();

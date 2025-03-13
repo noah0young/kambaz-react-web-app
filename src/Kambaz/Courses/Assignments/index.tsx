@@ -6,13 +6,12 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentHeaderControlButtons from "./AssignmentHeaderControlButtons";
 import { VscSaveAs } from "react-icons/vsc";
 import { useParams } from "react-router";
-import * as db from "../../Database";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Assignments() {
   const { cid } = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
-  const foundAssignments = assignments.filter((a) => cid === a.course);
+  const foundAssignments = assignments.filter((a: any) => cid === a.course);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div id="wd-assignments">
@@ -36,7 +35,7 @@ export default function Assignments() {
               )}
             </div>
             <ListGroup className="wd-assignments rounded-0">
-              {foundAssignments.map((assignment) => (
+              {foundAssignments.map((assignment: any) => (
                 <ListGroup.Item className="wd-assignment-link p-3 ps-1">
                   <Row>
                     <Col xs={2}>
