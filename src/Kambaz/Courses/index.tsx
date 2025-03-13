@@ -13,12 +13,13 @@ import AssignmentsEditor from "./Assignments/Editor";
 import { GiHamburgerMenu } from "react-icons/gi";
 import People from "../People/People";
 import { Col, Row } from "react-bootstrap";
-import courses from "../Database/courses.json";
+import { useSelector } from "react-redux";
 
-export default function Courses() {
+export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div>
       <h2 className="text-danger">
@@ -37,7 +38,7 @@ export default function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route
               path="Assignments/:assignmentID"
-              element={<AssignmentsEditor />}
+              element={currentUser.role === "FACULTY" && <AssignmentsEditor />}
             />
             <Route path="Quizzes" element={<h3>Quizzes</h3>} />
             <Route path="Grades" element={<h3>Grades</h3>} />

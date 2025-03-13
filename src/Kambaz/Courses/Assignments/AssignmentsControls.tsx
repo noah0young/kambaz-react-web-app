@@ -1,8 +1,11 @@
 import { FaPlus } from "react-icons/fa6";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { HiMagnifyingGlass } from "react-icons/hi2";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AssignmentControls() {
+  const { cid } = useParams();
+  const navigate = useNavigate();
   return (
     <div id="wd-modules-controls" className="text-nowrap">
       <Row>
@@ -24,6 +27,7 @@ export default function AssignmentControls() {
             size="lg"
             className="me-1 float-end"
             id="wd-view-progress"
+            onClick={() => navigate(`/Kambaz/Courses/${cid}/Assignments/new`)}
           >
             <FaPlus
               className="position-relative me-2"
