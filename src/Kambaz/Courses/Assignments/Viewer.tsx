@@ -10,7 +10,7 @@ export default function AssignmentViewer() {
   const possibleAssignments = assignments.filter(
     (a: any) => cid === a.course && a._id === assignmentID
   );
-  const [assignment, setAssignment] = useState(
+  const [assignment, _] = useState(
     possibleAssignments.length >= 1
       ? possibleAssignments[0]
       : {
