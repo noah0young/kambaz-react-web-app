@@ -10,6 +10,7 @@ import Modules from "./Modules";
 import CoursesNavigation from "./CoursesNavigation";
 import Assignments from "./Assignments";
 import AssignmentsEditor from "./Assignments/Editor";
+import AssignmentsViewer from "./Assignments/Viewer";
 import { GiHamburgerMenu } from "react-icons/gi";
 import People from "../People/People";
 import { Col, Row } from "react-bootstrap";
@@ -38,7 +39,13 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Assignments" element={<Assignments />} />
             <Route
               path="Assignments/:assignmentID"
-              element={currentUser.role === "FACULTY" && <AssignmentsEditor />}
+              element={
+                currentUser.role === "FACULTY" ? (
+                  <AssignmentsEditor />
+                ) : (
+                  <AssignmentsViewer />
+                )
+              }
             />
             <Route path="Quizzes" element={<h3>Quizzes</h3>} />
             <Route path="Grades" element={<h3>Grades</h3>} />

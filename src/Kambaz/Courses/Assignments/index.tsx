@@ -6,13 +6,30 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentHeaderControlButtons from "./AssignmentHeaderControlButtons";
 import { VscSaveAs } from "react-icons/vsc";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
+import { useEffect } from "react";
+import { setAssignments, deleteAssignment } from "./reducer";
 
 export default function Assignments() {
+  const dispatch = useDispatch();
   const { cid } = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
-  const foundAssignments = assignments.filter((a: any) => cid === a.course);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(
+      cid as string
+    );
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+  const removeModule = async (moduleId: string) => {
+    await assignmentsClient.deleteAssignment(moduleId);
+    dispatch(deleteAssignment(moduleId));
+  };
   return (
     <div id="wd-assignments">
       <div>
@@ -35,7 +52,7 @@ export default function Assignments() {
               )}
             </div>
             <ListGroup className="wd-assignments rounded-0">
-              {foundAssignments.map((assignment: any) => (
+              {assignments.map((assignment: any) => (
                 <ListGroup.Item className="wd-assignment-link p-3 ps-1">
                   <Row>
                     <Col xs={2}>
@@ -58,7 +75,10 @@ export default function Assignments() {
                       </Card>
                     </Col>
                     <Col xs={1}>
-                      <AssignmentControlButtons assignment={assignment} />
+                      <AssignmentControlButtons
+                        assignment={assignment}
+                        removeModule={removeModule}
+                      />
                     </Col>
                   </Row>
                 </ListGroup.Item>

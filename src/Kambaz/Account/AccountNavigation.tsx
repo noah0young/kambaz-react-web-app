@@ -8,7 +8,9 @@ export default function AccountNavigation() {
     <div>
       {links.map((link) => (
         <>
-          <Link to={`/Kambaz/Account/${link}`}>{link}</Link>
+          <Link key={link} to={`/Kambaz/Account/${link}`}>
+            {link}
+          </Link>
           <br />
         </>
       ))}

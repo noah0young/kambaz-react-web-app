@@ -4,46 +4,94 @@ import Courses from "./Courses";
 import Dashboard from "./Dashboard";
 import KambazNavigation from "./Navigation";
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import { useSelector } from "react-redux";
+import Session from "./Account/Session";
+import * as userClient from "./Account/client";
+import * as courseClient from "./Courses/client";
 
 export default function Kambaz() {
-  const { courses } = useSelector((state: any) => state.courseReducer);
   const [course, setCourse] = useState<any>({
-    _id: "1234",
-    name: "New Course",
-    number: "New Number",
-    startDate: "2023-09-10",
-    endDate: "2023-12-15",
-    description: "New Description",
+    _id: "RS101",
+    name: "Fundamentals of Time Travel 1",
+    number: "TIME2500",
+    startDate: "2023-01-10",
+    endDate: "2020-05-15",
+    department: "TIME123",
+    credits: 4,
+    description:
+      "This course takes a novel approach to teaching time travel, where we will first change the past before analyzing the effects it has on the future.",
   });
+  const [courses, setCourses] = useState<any>([]);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const deleteCourse = async (courseId: string) => {
+    const status = await courseClient.deleteCourse(courseId);
+    setCourses(courses.filter((course: any) => course._id !== courseId));
+  };
+  const updateCourse = async () => {
+    await courseClient.updateCourse(course);
+    setCourses(
+      courses.map((c: any) => {
+        if (c._id === course._id) {
+          return course;
+        } else {
+          return c;
+        }
+      })
+    );
+  };
+  const addNewCourse = async () => {
+    const newCourse = await userClient.createCourse(course);
+    setCourses([...courses, newCourse]);
+  };
+
+  const fetchCourses = async () => {
+    try {
+      const courses = await userClient.findMyCourses();
+      setCourses(courses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser]);
 
   return (
-    <div id="wd-kambaz">
-      <KambazNavigation />
-      <div className="wd-main-content-offset p-3">
-        <Routes>
-          <Route path="" element={<Navigate to="Account" />} />
-          <Route path="Account/*" element={<Account />} />\
-          <Route
-            path="Dashboard/*"
-            element={
-              <ProtectedRoute>
-                <Dashboard course={course} setCourse={setCourse} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="Courses/:cid/*"
-            element={
-              <ProtectedRoute>
-                <Courses courses={courses} />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+    <Session>
+      <div id="wd-kambaz">
+        <KambazNavigation />
+        <div className="wd-main-content-offset p-3">
+          <Routes>
+            <Route path="" element={<Navigate to="Account" />} />
+            <Route path="Account/*" element={<Account />} />\
+            <Route
+              path="Dashboard/*"
+              element={
+                <ProtectedRoute>
+                  <Dashboard
+                    course={course}
+                    setCourse={setCourse}
+                    deleteCourse={deleteCourse}
+                    updateCourse={updateCourse}
+                    addNewCourse={addNewCourse}
+                    courses={courses}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="Courses/:cid/*"
+              element={
+                <ProtectedRoute>
+                  <Courses courses={courses} />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Session>
   );
 }

@@ -15,6 +15,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentsEditor() {
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
@@ -36,6 +38,18 @@ export default function AssignmentsEditor() {
           _id: uuidv4(),
         }
   );
+  const saveModule = async (module: any) => {
+    await assignmentsClient.updateAssignment(module);
+    dispatch(updateAssignment(module));
+  };
+  const createAssignment = async () => {
+    if (!cid) return;
+    const retAssignment = await coursesClient.createAssignmentForCourse(
+      cid,
+      assignment
+    );
+    dispatch(addAssignment(retAssignment));
+  };
   const isUpdatingAssignment: boolean = !!possibleAssignments.find((a: any) => {
     return a._id === assignment._id;
   });
@@ -235,9 +249,7 @@ export default function AssignmentsEditor() {
           variant="danger"
           className="rounded-0 me-2 float-end"
           onClick={() => {
-            isUpdatingAssignment
-              ? dispatch(updateAssignment(assignment))
-              : dispatch(addAssignment(assignment));
+            isUpdatingAssignment ? saveModule(assignment) : createAssignment();
             navigate(`/Kambaz/Courses/${cid}/Assignments`);
             console.log(db.assignments);
           }}

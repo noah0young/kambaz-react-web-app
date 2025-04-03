@@ -1,35 +1,32 @@
 import { useState } from "react";
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
-import * as db from "./Database";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewCourse, deleteCourse, updateCourse } from "./Courses/reducer";
 
 export default function Dashboard({
   course,
+  courses,
   setCourse,
+  deleteCourse,
+  updateCourse,
+  addNewCourse,
 }: {
   course: any;
+  courses: any;
   setCourse: any;
+  deleteCourse: any;
+  updateCourse: any;
+  addNewCourse: any;
 }) {
-  const dispatch = useDispatch();
-  const [showAllCourses, setShowAllCourses] = useState(false);
-  const { courses } = useSelector((state: any) => state.courseReducer);
+  //const dispatch = useDispatch();
+  //const [showAllCourses, setShowAllCourses] = useState(false);
+  //const { courses } = useSelector((state: any) => state.courseReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = db;
-  const myCourses = showAllCourses
-    ? courses
-    : courses.filter((course: any) =>
-        enrollments.some(
-          (enrollment) =>
-            enrollment.user === currentUser._id &&
-            enrollment.course === course._id
-        )
-      );
+  const myCourses = courses;
   return (
     <div id="wd-dashboard">
       <h1 id="we-dashboard-title">Dashboard</h1>{" "}
-      <Button
+      {/*<Button
         className="float-end d-flex"
         onClick={() => {
           setShowAllCourses(!showAllCourses);
@@ -37,7 +34,7 @@ export default function Dashboard({
       >
         Enrollments
       </Button>{" "}
-      <hr />
+      <hr />*/}
       {currentUser.role === "FACULTY" && (
         <>
           <h5>New Course</h5>
@@ -45,29 +42,25 @@ export default function Dashboard({
           <FormControl
             value={course.name}
             className="mb-2"
-            onChange={(e) =>
-              dispatch(setCourse({ ...course, name: e.target.value }))
-            }
+            onChange={(e) => setCourse({ ...course, name: e.target.value })}
           />
           <FormControl
             value={course.description}
             onChange={(e) =>
-              dispatch(setCourse({ ...course, description: e.target.value }))
+              setCourse({ ...course, description: e.target.value })
             }
           />
           <button
             className="btn btn-primary float-end"
             id="wd-add-new-course-click"
             onClick={() =>
-              dispatch(
-                addNewCourse({
-                  name: course.name,
-                  number: course.number,
-                  startDate: course.startDate,
-                  endDate: course.endDate,
-                  description: course.description,
-                })
-              )
+              addNewCourse({
+                name: course.name,
+                number: course.number,
+                startDate: course.startDate,
+                endDate: course.endDate,
+                description: course.description,
+              })
             }
           >
             {" "}
@@ -75,7 +68,7 @@ export default function Dashboard({
           </button>
           <button
             className="btn btn-warning float-end me-2"
-            onClick={() => dispatch(updateCourse(course))}
+            onClick={() => updateCourse(course)}
             id="wd-update-course-click"
           >
             Update
@@ -121,7 +114,7 @@ export default function Dashboard({
                       <button
                         onClick={(event) => {
                           event.preventDefault();
-                          dispatch(deleteCourse(course._id));
+                          deleteCourse(course._id);
                         }}
                         className="btn btn-danger float-end"
                         id="wd-delete-course-click"
