@@ -6,35 +6,33 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Dashboard({
   course,
   courses,
+  myCourses,
   setCourse,
   deleteCourse,
   updateCourse,
   addNewCourse,
+  enroll,
+  unenroll,
 }: {
   course: any;
   courses: any;
+  myCourses: any;
   setCourse: any;
   deleteCourse: any;
   updateCourse: any;
   addNewCourse: any;
+  enroll: (courseID: string | undefined) => void;
+  unenroll: (courseID: string | undefined) => void;
 }) {
   //const dispatch = useDispatch();
   //const [showAllCourses, setShowAllCourses] = useState(false);
   //const { courses } = useSelector((state: any) => state.courseReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const myCourses = courses;
+  const [toBeAdded, setToBeAdded] = useState<string>();
+  const [toBeRemoved, setToBeRemoved] = useState<string>();
   return (
     <div id="wd-dashboard">
-      <h1 id="we-dashboard-title">Dashboard</h1>{" "}
-      {/*<Button
-        className="float-end d-flex"
-        onClick={() => {
-          setShowAllCourses(!showAllCourses);
-        }}
-      >
-        Enrollments
-      </Button>{" "}
-      <hr />*/}
+      <h1 id="we-dashboard-title">Dashboard</h1> <hr />
       {currentUser.role === "FACULTY" && (
         <>
           <h5>New Course</h5>
@@ -129,6 +127,44 @@ export default function Dashboard({
           ))}
         </Row>
       </div>
+      {/* Enrollments/Unenrollments */}
+      <Row>
+        <Col>
+          {/* Enrollments */}
+          <h2>Enroll</h2>
+          <select
+            onChange={(e) => setToBeAdded(e.target.value)}
+            className="form-control mb-2"
+            id="wd-role"
+          >
+            {courses.map((course: any) => (
+              <option key={course._id} value={course._id}>
+                {course.name}
+              </option>
+            ))}
+          </select>
+          <Button onClick={() => enroll(toBeAdded)}>Enroll</Button>
+        </Col>
+        <Col>
+          {/* Unenrollments */}
+          <h2>Unenroll</h2>
+          <select
+            onChange={(e) => setToBeRemoved(e.target.value)}
+            className="form-control mb-2"
+            id="wd-role"
+          >
+            {courses.map((course: any) => (
+              <option key={course._id} value={course._id}>
+                {course.name}
+              </option>
+            ))}
+          </select>
+          <Button onClick={() => unenroll(toBeRemoved)}>Unenroll</Button>
+        </Col>
+      </Row>
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

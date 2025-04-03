@@ -24,10 +24,12 @@ export default function Kambaz() {
       "This course takes a novel approach to teaching time travel, where we will first change the past before analyzing the effects it has on the future.",
   });
   const [courses, setCourses] = useState<any>([]);
+  const [myCourses, setMyCourses] = useState<any>([]);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const deleteCourse = async (courseId: string) => {
     const status = await courseClient.deleteCourse(courseId);
     setCourses(courses.filter((course: any) => course._id !== courseId));
+    setMyCourses(myCourses.filter((course: any) => course._id !== courseId));
   };
   const updateCourse = async () => {
     await courseClient.updateCourse(course);
@@ -40,16 +42,50 @@ export default function Kambaz() {
         }
       })
     );
+    setMyCourses(
+      myCourses.map((c: any) => {
+        if (c._id === course._id) {
+          return course;
+        } else {
+          return c;
+        }
+      })
+    );
   };
   const addNewCourse = async () => {
     const newCourse = await userClient.createCourse(course);
     setCourses([...courses, newCourse]);
+    setMyCourses([...myCourses, newCourse]);
+  };
+  const enrollCourse = async (courseID: string | undefined) => {
+    if (!courseID) {
+      return;
+    }
+    const status = await userClient.enrollCourse(courseID);
+    const containsCourse = myCourses.find(
+      (course: any) => course._id === courseID
+    );
+    if (!containsCourse) {
+      setMyCourses([
+        ...myCourses,
+        courses.find((course: any) => course._id === courseID),
+      ]);
+    }
+  };
+  const unenrollCourse = async (courseID: string | undefined) => {
+    if (!courseID) {
+      return;
+    }
+    const status = await userClient.unenrollCourse(courseID);
+    setMyCourses(myCourses.filter((course: any) => course._id !== courseID));
   };
 
   const fetchCourses = async () => {
     try {
-      const courses = await userClient.findMyCourses();
+      const courses = await userClient.allCourses();
+      const myCourses = await userClient.findMyCourses();
       setCourses(courses);
+      setMyCourses(myCourses);
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +112,10 @@ export default function Kambaz() {
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
                     addNewCourse={addNewCourse}
+                    enroll={enrollCourse}
+                    unenroll={unenrollCourse}
                     courses={courses}
+                    myCourses={myCourses}
                   />
                 </ProtectedRoute>
               }
