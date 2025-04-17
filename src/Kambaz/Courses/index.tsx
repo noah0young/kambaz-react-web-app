@@ -50,7 +50,7 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Quizzes" element={<h3>Quizzes</h3>} />
             <Route path="Grades" element={<h3>Grades</h3>} />
             <Route path="Zoom" element={<h3>Zoom</h3>} />
-            <Route path="People" element={<People />} />
+            <Route path="People" element={<People cid={cid} />} />
             <Route path="Piazza" element={<h3>Piazza</h3>} />
           </Routes>
         </Col>
