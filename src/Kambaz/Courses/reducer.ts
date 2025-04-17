@@ -9,7 +9,6 @@ const coursesSlice = createSlice({
   initialState,
   reducers: {
     addNewCourse: (state, { payload: course }) => {
-      console.log("Got course = " + course.name);
       const newCourse: any = {
         _id: uuidv4(),
         name: course.name,
@@ -19,7 +18,6 @@ const coursesSlice = createSlice({
         description: course.description,
       };
       state.courses = [...state.courses, newCourse] as any;
-      console.log(state.courses);
     },
     deleteCourse: (state, { payload: moduleId }) => {
       state.courses = state.courses.filter((m: any) => m._id !== moduleId);

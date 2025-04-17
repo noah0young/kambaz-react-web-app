@@ -9,21 +9,29 @@ export default function AccountNavigation() {
   return (
     <div>
       {links.map((link) => (
-        <>
-          <Link key={link} to={`/Kambaz/Account/${link}`}>
+        <div key={link}>
+          <Link
+            key={link}
+            to={`/Kambaz/Account/${link}`}
+            className={`list-group-item ${active("Users")} ${
+              pathname.includes(link) ? "active text-black" : "text-danger"
+            }`}
+          >
             {link}
           </Link>
-          {currentUser && currentUser.role === "ADMIN" && (
-            <Link
-              to={`/Kambaz/Account/Users`}
-              className={`list-group-item ${active("Users")}`}
-            >
-              Users
-            </Link>
-          )}
           <br />
-        </>
+        </div>
       ))}
+      {currentUser && currentUser.role === "ADMIN" && (
+        <Link
+          to={`/Kambaz/Account/Users`}
+          className={`list-group-item ${active("Users")} ${
+            pathname.includes("Users") ? "active text-black" : "text-danger"
+          }`}
+        >
+          Users
+        </Link>
+      )}
     </div>
   );
 }

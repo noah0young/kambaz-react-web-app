@@ -12,7 +12,6 @@ const assignmentSlice = createSlice({
       state.assignments = action.payload;
     },
     addAssignment: (state, { payload: assignment }) => {
-      console.log("addAssignment");
       const newAssignment: any = {
         _id: uuidv4(),
         lessons: [],
@@ -26,13 +25,11 @@ const assignmentSlice = createSlice({
       state.assignments = [...state.assignments, newAssignment] as any;
     },
     deleteAssignment: (state, { payload: assignmentID }) => {
-      console.log("deleteAssignment");
       state.assignments = state.assignments.filter(
         (a: any) => a._id !== assignmentID
       );
     },
     updateAssignment: (state, { payload: assignment }) => {
-      console.log("updateAssignment");
       state.assignments = state.assignments.map((a: any) =>
         a._id === assignment._id ? assignment : a
       ) as any;

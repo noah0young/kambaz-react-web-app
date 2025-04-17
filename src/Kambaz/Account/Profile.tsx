@@ -98,8 +98,7 @@ export default function Profile() {
             onClick={updateProfile}
             className="btn btn-primary w-100 mb-2"
           >
-            {" "}
-            Update{" "}
+            Update
           </button>
 
           <Button onClick={signout} className="w-100 mb-2" id="wd-signout-btn">

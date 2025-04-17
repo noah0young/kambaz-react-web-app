@@ -24,7 +24,6 @@ export default function Kambaz() {
       "This course takes a novel approach to teaching time travel, where we will first change the past before analyzing the effects it has on the future.",
   });
   const [courses, setCourses] = useState<any>([]);
-  const [myCourses, setMyCourses] = useState<any>([]);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const deleteCourse = async (courseId: string) => {
     await courseClient.deleteCourse(courseId);
@@ -42,20 +41,10 @@ export default function Kambaz() {
         }
       })
     );
-    setMyCourses(
-      myCourses.map((c: any) => {
-        if (c._id === course._id) {
-          return course;
-        } else {
-          return c;
-        }
-      })
-    );
   };
   const addNewCourse = async () => {
     const newCourse = await userClient.createCourse(course);
     setCourses([...courses, newCourse]);
-    setMyCourses([...myCourses, newCourse]);
   };
   const updateEnrollment = async (courseId: string, enrolled: boolean) => {
     if (enrolled) {
@@ -75,14 +64,6 @@ export default function Kambaz() {
   };
 
   const [enrolling, setEnrolling] = useState<boolean>(false);
-  const findCoursesForUser = async () => {
-    try {
-      const courses = await userClient.findCoursesForUser(currentUser._id);
-      setCourses(courses);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const fetchCourses = async () => {
     try {
       const allCourses = await courseClient.fetchAllCourses();
@@ -90,7 +71,11 @@ export default function Kambaz() {
         currentUser._id
       );
       const courses = allCourses.map((course: any) => {
-        if (enrolledCourses.find((c: any) => c._id === course._id)) {
+        if (
+          enrolledCourses.find((c: any) => {
+            return c._id === course._id;
+          })
+        ) {
           return { ...course, enrolled: true };
         } else {
           return course;
@@ -103,11 +88,7 @@ export default function Kambaz() {
   };
 
   useEffect(() => {
-    if (enrolling) {
-      fetchCourses();
-    } else {
-      findCoursesForUser();
-    }
+    fetchCourses();
   }, [currentUser, enrolling]);
 
   return (
@@ -129,7 +110,7 @@ export default function Kambaz() {
                     updateCourse={updateCourse}
                     addNewCourse={addNewCourse}
                     courses={courses}
-                    myCourses={myCourses}
+                    myCourses={courses.filter((course: any) => course.enrolled)}
                     enrolling={enrolling}
                     setEnrolling={setEnrolling}
                     updateEnrollment={updateEnrollment}

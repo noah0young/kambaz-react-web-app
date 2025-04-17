@@ -69,8 +69,7 @@ export default function Dashboard({
               })
             }
           >
-            {" "}
-            Add{" "}
+            Add
           </button>
           <button
             className="btn btn-warning float-end me-2"
@@ -130,6 +129,7 @@ export default function Dashboard({
                       {course.description}
                     </Card.Text>
                     <Button variant="primary">Go</Button>
+
                     {currentUser.role === "FACULTY" && (
                       <button
                         onClick={(event) => {
@@ -140,6 +140,18 @@ export default function Dashboard({
                         id="wd-delete-course-click"
                       >
                         Delete
+                      </button>
+                    )}
+                    {currentUser.role === "FACULTY" && (
+                      <button
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setCourse(course);
+                        }}
+                        className="btn btn-warning float-end"
+                        id="wd-delete-course-click"
+                      >
+                        Edit
                       </button>
                     )}
                   </Card.Body>

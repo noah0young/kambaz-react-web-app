@@ -251,7 +251,6 @@ export default function AssignmentsEditor() {
           onClick={() => {
             isUpdatingAssignment ? saveModule(assignment) : createAssignment();
             navigate(`/Kambaz/Courses/${cid}/Assignments`);
-            console.log(db.assignments);
           }}
         >
           Save

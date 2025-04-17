@@ -20,6 +20,7 @@ export default function Modules() {
   const { cid } = useParams();
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
+  const [curUpdatingModuleName, setCurUpdatingModuleName] = useState("");
   const [moduleName, setModuleName] = useState("");
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const fetchModulesForCourse = async () => {
@@ -71,29 +72,34 @@ export default function Modules() {
               key={module.name}
             >
               <div className="wd-title p-3 ps-2 bg-secondary">
-                <BsGripVertical className="me-2 fs-3" /> {module.name}
+                <BsGripVertical className="me-2 fs-3" />
                 {!module.editing && module.name}
                 {module.editing && (
                   <FormControl
                     className="w-50 d-inline-block"
-                    onChange={(e) =>
-                      dispatch(
-                        updateModule({ ...module, name: e.target.value })
-                      )
-                    }
+                    onChange={(e) => {
+                      setCurUpdatingModuleName(e.target.value);
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        updateModuleHandler({ ...module, editing: false });
+                        updateModuleHandler({
+                          ...module,
+                          name: curUpdatingModuleName,
+                          editing: false,
+                        });
                       }
                     }}
-                    defaultValue={module.name}
+                    value={curUpdatingModuleName}
                   />
                 )}
                 {currentUser.role === "FACULTY" && (
                   <ModuleControlButtons
                     moduleId={module._id}
                     deleteModule={(moduleId) => deleteModuleHandler(moduleId)}
-                    editModule={(moduleId) => dispatch(editModule(moduleId))}
+                    editModule={(moduleId) => {
+                      setCurUpdatingModuleName(module.name);
+                      dispatch(editModule(moduleId));
+                    }}
                   />
                 )}
               </div>
