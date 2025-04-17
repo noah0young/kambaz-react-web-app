@@ -74,12 +74,14 @@ export default function Assignments() {
                         </Card.Text>
                       </Card>
                     </Col>
-                    <Col xs={1}>
-                      <AssignmentControlButtons
-                        assignment={assignment}
-                        removeModule={removeModule}
-                      />
-                    </Col>
+                    {currentUser.role === "FACULTY" && (
+                      <Col xs={1}>
+                        <AssignmentControlButtons
+                          assignment={assignment}
+                          removeModule={removeModule}
+                        />
+                      </Col>
+                    )}
                   </Row>
                 </ListGroup.Item>
               ))}
