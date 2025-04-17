@@ -10,7 +10,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
-import * as db from "../../Database";
 import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
 import { useState } from "react";
