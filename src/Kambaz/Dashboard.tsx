@@ -30,7 +30,7 @@ export default function Dashboard({
   const [viewingCourses, setViewingCourses] = useState<any[]>([]);
   useEffect(() => {
     setViewingCourses(enrolling ? courses : myCourses);
-  }, [enrolling]);
+  }, [enrolling, courses, myCourses]);
   return (
     <div id="wd-dashboard">
       <h1 id="we-dashboard-title">Dashboard</h1>
